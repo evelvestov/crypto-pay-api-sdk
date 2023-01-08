@@ -93,7 +93,7 @@ class Crypto:
                                 **params}
                         ).json() 
 
-    def getInvoices(self) -> (dict):
+    def getInvoices(self, asset=None, invoice_ids=None, status='active', offset=0, count=100) -> (dict):
         """Use this method to get invoices of your app
         
         Args:
@@ -111,7 +111,15 @@ class Crypto:
         Returns:
             Array of invoices
         """
-        return get(f'{self.url}/getInvoices', headers=self.headers).json()        
+        return get(f'{self.url}/getInvoices',
+                   headers=self.headers,
+                   json={'asset': asset,
+                         'invoice_ids': invoice_ids,
+                         'status': status,
+                         'offset': offset,
+                         'count': count
+                         }
+                   ).json()       
        
     def getBalance(self) -> (dict):
         """Use this method to get balance of your app
